@@ -62,7 +62,7 @@ class Edr_Gateway_BankTransfer extends Edr_Gateway_Base {
 
 			if ( ! empty( $description ) ) {
 				echo '<h3>' . __( 'Payment Instructions', 'ibeducator' ) . '</h3>';
-				echo '<div class="ib-edu-payment-description">' . wpautop( stripslashes( $description ) ) . '</div>';
+				echo '<div class="ib-edu-payment-description">' . wpautop( do_shortcode( stripslashes( $description ) ) ) . '</div>';
 			}
 		}
 	}

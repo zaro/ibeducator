@@ -151,7 +151,7 @@ class Edr_Gateway_Stripe extends Edr_Gateway_Base {
 		$thankyou_message = $this->get_option( 'thankyou_message' );
 
 		if ( ! empty( $thankyou_message ) ) {
-			echo '<div class="ib-edu-payment-description">' . wpautop( stripslashes( $thankyou_message ) ) . '</div>';
+			echo '<div class="ib-edu-payment-description">' . wpautop( do_shortcode( stripslashes( $thankyou_message ) ) ) . '</div>';
 		}
 	}
 

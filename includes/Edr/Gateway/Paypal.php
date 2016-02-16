@@ -56,7 +56,7 @@ class Edr_Gateway_Paypal extends Edr_Gateway_Base {
 		if ( ! $user_id ) {
 			return array( 'redirect' => home_url( '/' ) );
 		}
-		
+
 		$payment = $this->create_payment( $object_id, $user_id, $payment_type, $atts );
 		$redirect = '';
 
@@ -156,21 +156,21 @@ class Edr_Gateway_Paypal extends Edr_Gateway_Base {
 		$thankyou_message = $this->get_option( 'thankyou_message' );
 
 		if ( ! empty( $thankyou_message ) ) {
-			echo '<div class="ib-edu-payment-description">' . wpautop( stripslashes( $thankyou_message ) ) . '</div>';
+			echo '<div class="ib-edu-payment-description">' . wpautop( do_shortcode( stripslashes( $thankyou_message ) ) ) . '</div>';
 		}
 	}
 
 	public function process_ipn() {
 		$debug = 0;
 		$log_file = IBEDUCATOR_PLUGIN_DIR . 'ipn.log';
-		
+
 		// Read POST data
 		// reading posted data directly from $_POST causes serialization
 		// issues with array data in POST. Reading raw POST data from input stream instead.
 		$raw_post_data = file_get_contents( 'php://input' );
 		$raw_post_array = explode( '&', $raw_post_data );
 		$myPost = array();
-		
+
 		foreach ( $raw_post_array as $keyval ) {
 			$keyval = explode ('=', $keyval);
 
@@ -181,13 +181,13 @@ class Edr_Gateway_Paypal extends Edr_Gateway_Base {
 
 		// read the post from PayPal system and add 'cmd'
 		$req = 'cmd=_notify-validate';
-		
+
 		if ( function_exists( 'get_magic_quotes_gpc' ) ) {
 			$get_magic_quotes_exists = true;
 		} else {
 			$get_magic_quotes_exists = false;
 		}
-		
+
 		foreach ( $myPost as $key => $value ) {
 			if( true == $get_magic_quotes_exists && 1 == get_magic_quotes_gpc() ) {
 				$value = urlencode( stripslashes( $value ) );
@@ -288,7 +288,7 @@ class Edr_Gateway_Paypal extends Edr_Gateway_Base {
 						}
 
 						$payment->save();
-						
+
 						// Setup course or membership for the student.
 						IB_Educator::get_instance()->setup_payment_item( $payment );
 						break;
@@ -303,7 +303,7 @@ class Edr_Gateway_Paypal extends Edr_Gateway_Base {
 						break;
 				}
 			}
-			
+
 			if ( $debug ) {
 				error_log( date( '[Y-m-d H:i e] ' ) . 'Verified IPN: ' . $req . PHP_EOL, 3, $log_file );
 			}
