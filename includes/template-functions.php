@@ -157,6 +157,7 @@ function edr_display_lessons( $course_id ) {
 }
 endif;
 
+if ( ! function_exists( 'edr_get_question_content' ) ) :
 /**
  * Get question content.
  *
@@ -172,7 +173,9 @@ function edr_get_question_content( $question ) {
 	 */
 	return apply_filters( 'edr_get_question_content', $question->question_content, $question );
 }
+endif;
 
+if ( ! function_exists( 'edr_question_multiple_choice' ) ) :
 /**
  * Display a multiple choice question.
  *
@@ -225,7 +228,9 @@ function edr_question_multiple_choice( $question, $answer, $edit, $choices ) {
 	echo '</ul>';
 	echo '</div>';
 }
+endif;
 
+if ( ! function_exists( 'edr_question_written_answer' ) ) :
 /**
  * Display a multiple choice question.
  *
@@ -253,3 +258,4 @@ function edr_question_written_answer( $question, $answer, $edit ) {
 
 	echo '</div>';
 }
+endif;
